@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+    <!-- Placeholder image: a dumbbell next to a database table -->
+    <rect width="800" height="500" fill="#1b2a41"/>
+
+    <!-- Dumbbell -->
+    <rect x="100" y="235" width="240" height="16" rx="6" fill="#cfd8e3"/>
+    <rect x="100" y="183" width="22" height="120" rx="6" fill="#f4b860"/>
+    <rect x="128" y="198" width="18" height="90" rx="5" fill="#f4b860"/>
+    <rect x="294" y="198" width="18" height="90" rx="5" fill="#f4b860"/>
+    <rect x="318" y="183" width="22" height="120" rx="6" fill="#f4b860"/>
+
+    <!-- Database table -->
+    <rect x="440" y="170" width="280" height="150" rx="8" fill="none" stroke="#5cd6c8" stroke-width="4"/>
+    <rect x="440" y="170" width="280" height="40" rx="8" fill="#24405f" stroke="#5cd6c8" stroke-width="4"/>
+    <g stroke="#5cd6c8" stroke-width="3">
+        <line x1="440" y1="245" x2="720" y2="245"/>
+        <line x1="440" y1="282" x2="720" y2="282"/>
+        <line x1="533" y1="170" x2="533" y2="320"/>
+        <line x1="627" y1="170" x2="627" y2="320"/>
+    </g>
+
+</svg>

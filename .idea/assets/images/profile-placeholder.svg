@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+    <!-- Placeholder profile picture: replace with your own photo later -->
+    <rect width="400" height="400" fill="#12343b"/>
+    <circle cx="200" cy="150" r="70" fill="#1f5560"/>
+    <path d="M60 400 C60 290 130 240 200 240 C270 240 340 290 340 400 Z" fill="#1f5560"/>
+    <text x="200" y="228" text-anchor="middle" font-family="Arial, Helvetica, sans-serif"
+          font-size="96" font-weight="700" fill="#5cd6c8">LA</text>
+</svg>

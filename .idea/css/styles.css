@@ -1,0 +1,552 @@
+/* ==========================================================================
+   styles.css - Leen Alhelal's portfolio
+
+   Contents
+   1. Theme variables (light + dark colours)
+   2. Base styles
+   3. Reusable pieces (container, buttons, sections)
+   4. Header and navigation
+   5. Hero
+   6. About
+   7. Projects
+   8. Contact form
+   9. Footer
+   10. Motion preferences
+   11. Responsive design (tablet + mobile)
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   1. THEME VARIABLES
+   Colours live in ONE place. Every rule below uses var(--name), so switching
+   theme only means swapping these values.
+   -------------------------------------------------------------------------- */
+
+/* Light theme (the default) */
+:root {
+  color-scheme: light;               /* makes form controls and scrollbars match the theme */
+
+  --color-bg: #f6f8fa;               /* page background */
+  --color-surface: #ffffff;          /* cards, header, alternate sections */
+  --color-text: #14202b;
+  --color-text-muted: #46545f;
+  --color-border: #d5dde5;
+  --color-input-border: #6b7a87;
+  --color-hover-bg: #e8eef3;         /* light highlight for hovered links, chips */
+
+  --color-accent: #0b6e6e;
+  --color-accent-hover: #084f4f;
+  --color-on-accent: #ffffff;        /* text colour on top of the accent colour */
+  --color-focus: #1d4ed8;            /* keyboard focus outline */
+
+  --color-ongoing-bg: #fff0c2;
+  --color-ongoing-text: #5c3d00;
+  --color-completed-bg: #d9f2ee;
+  --color-completed-text: #0a4a4a;
+
+  --shadow-card: 0 1px 3px rgba(20, 32, 43, 0.08), 0 6px 16px rgba(20, 32, 43, 0.06);
+
+  /* Other design values used in several places */
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --radius: 12px;
+  --max-width: 1100px;
+  --scroll-offset: 4.5rem;           /* space left for the sticky header when jumping to a section */
+}
+
+/* Dark theme: script.js sets data-theme="dark" on the <html> element.
+   These values replace the light ones above. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-bg: #0e1620;
+  --color-surface: #16212c;
+  --color-text: #e9eff4;
+  --color-text-muted: #aab8c4;
+  --color-border: #2b3a48;
+  --color-input-border: #7f909f;
+  --color-hover-bg: #223140;
+
+  --color-accent: #5cd6c8;
+  --color-accent-hover: #8be9dd;
+  --color-on-accent: #0e1620;
+  --color-focus: #ffd166;
+
+  --color-ongoing-bg: #3d2f0c;
+  --color-ongoing-text: #ffd97a;
+  --color-completed-bg: #12403e;
+  --color-completed-text: #a1f0e6;
+
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+
+/* --------------------------------------------------------------------------
+   2. BASE STYLES
+   -------------------------------------------------------------------------- */
+
+/* border-box means padding is included in an element's width (easier maths) */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+}
+
+/* Responsive images: never wider than their container, and keep proportions */
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--color-accent);
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+/* Keyboard focus: a clear outline on anything focusable.
+   :focus-visible only shows it for keyboard users, not for mouse clicks. */
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+
+/* --------------------------------------------------------------------------
+   3. REUSABLE PIECES
+   -------------------------------------------------------------------------- */
+
+/* Keeps content centred and not too wide on large screens */
+.container {
+  max-width: var(--max-width);
+  margin-inline: auto;               /* left + right margin: auto = centred */
+  padding-inline: 1.5rem;
+}
+
+/* Hidden "Skip to main content" link, shown when it gets keyboard focus */
+.skip-link {
+  position: absolute;
+  top: -4rem;                        /* off-screen */
+  left: 1rem;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 1rem;                         /* slides into view */
+  color: var(--color-on-accent);
+}
+
+/* Buttons: used for links AND real <button> elements */
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--color-accent);
+  border-radius: 8px;
+  font: inherit;                     /* real buttons don't inherit the page font by default */
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button-primary {
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.button-primary:hover {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  color: var(--color-on-accent);
+}
+
+.button-secondary {
+  background-color: transparent;
+  color: var(--color-accent);
+}
+
+.button-secondary:hover {
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+/* Page sections */
+.section {
+  padding-block: 4rem;               /* top + bottom */
+  scroll-margin-top: var(--scroll-offset);
+}
+
+/* Alternate background so sections are easy to tell apart */
+.section-alt {
+  background-color: var(--color-surface);
+  border-block: 1px solid var(--color-border);
+}
+
+.section-title {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);   /* scales with screen width, within limits */
+}
+
+.section-intro {
+  max-width: 60ch;                   /* "ch" is about one character wide: keeps lines readable */
+  margin: 0 0 2rem;
+  color: var(--color-text-muted);
+}
+
+
+/* --------------------------------------------------------------------------
+   4. HEADER AND NAVIGATION
+   -------------------------------------------------------------------------- */
+
+.site-header {
+  position: sticky;                  /* stays at the top while scrolling */
+  top: 0;
+  z-index: 50;
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Flexbox: logo on the left, nav in the middle, toggle button on the right */
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.75rem;
+}
+
+.site-logo {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.site-logo:hover {
+  color: var(--color-accent);
+}
+
+.nav-list {
+  display: flex;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-link {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-weight: 500;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  background-color: var(--color-hover-bg);
+  color: var(--color-accent);
+}
+
+/* Smaller version of the button, for the header.
+   It comes AFTER .button in this file so its padding wins. */
+.theme-toggle {
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   5. HERO
+   -------------------------------------------------------------------------- */
+
+.hero {
+  padding-block: 5rem 4rem;
+  scroll-margin-top: var(--scroll-offset);
+}
+
+.hero-greeting {
+  margin: 0 0 0.5rem;
+  font-size: 1.15rem;
+  color: var(--color-text-muted);
+}
+
+.hero-title {
+  margin: 0 0 1rem;
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  letter-spacing: -0.02em;
+}
+
+.hero-tagline {
+  max-width: 34ch;
+  margin: 0;
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  color: var(--color-text-muted);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;                   /* buttons drop to a new line if there is no room */
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   6. ABOUT
+   -------------------------------------------------------------------------- */
+
+/* CSS Grid: a fixed-width image column and a text column that takes the rest */
+
+.about-text p {
+  max-width: 65ch;
+  margin-top: 0;
+}
+
+.about-subheading {
+  margin: 1.5rem 0 0.75rem;
+  font-size: 1.1rem;
+}
+
+.interest-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.interest-list li {
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;              /* very large radius = pill shape */
+  background-color: var(--color-hover-bg);
+  font-size: 0.95rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   7. PROJECTS
+   -------------------------------------------------------------------------- */
+
+/* Two equal columns on desktop and tablet (one column on mobile, see section 11) */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+/* Each card is a flex column so the image sits on top of the text */
+.project-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-card);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(20, 32, 43, 0.12);
+}
+
+.project-image {
+  width: 100%;
+  aspect-ratio: 16 / 10;             /* same image shape on every card */
+  object-fit: cover;
+}
+
+.project-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.75rem;
+  padding: 1.5rem;
+}
+
+.project-title {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.project-description {
+  margin: 0;
+}
+
+/* Small status label on each card */
+.status-badge {
+  align-self: flex-start;            /* stops the badge stretching to full width */
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.status-ongoing {
+  background-color: var(--color-ongoing-bg);
+  color: var(--color-ongoing-text);
+}
+
+.status-completed {
+  background-color: var(--color-completed-bg);
+  color: var(--color-completed-text);
+}
+
+
+/* --------------------------------------------------------------------------
+   8. CONTACT FORM
+   -------------------------------------------------------------------------- */
+
+.contact-form {
+  max-width: 40rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  font-weight: 600;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--color-input-border);
+  border-radius: 8px;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.form-input:hover {
+  border-color: var(--color-accent);
+}
+
+.form-input:focus-visible {
+  border-color: var(--color-focus);
+}
+
+.form-textarea {
+  min-height: 8rem;
+  resize: vertical;                  /* the user can only resize up/down, not sideways */
+}
+
+.form-status {
+  min-height: 1.6rem;                /* reserves space so the page doesn't jump */
+  margin: 1rem 0 0;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+
+/* --------------------------------------------------------------------------
+   9. FOOTER
+   -------------------------------------------------------------------------- */
+
+.site-footer {
+  padding-block: 2rem;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+
+/* --------------------------------------------------------------------------
+   10. MOTION PREFERENCES
+   Smooth scrolling and colour fades are only enabled for people who have NOT
+   asked their device to reduce motion.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;         /* nav links glide to their section */
+  }
+
+  * {
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   11. RESPONSIVE DESIGN
+   Media queries apply their rules only when the screen is this narrow or less.
+   Desktop styles are written first; smaller screens override what changes.
+   -------------------------------------------------------------------------- */
+
+/* Tablet: 768px wide and below */
+@media (max-width: 768px) {
+  :root {
+    --scroll-offset: 8rem;           /* the header is taller when it wraps onto two rows */
+  }
+
+  /* Header: logo + button on the first row, navigation on the second row */
+  .header-inner {
+    flex-wrap: wrap;
+  }
+
+  .site-nav {
+    order: 3;                        /* moves the nav after the button */
+    width: 100%;
+  }
+
+  .nav-list {
+    flex-wrap: wrap;
+  }
+
+  .hero {
+    padding-block: 3.5rem 3rem;
+  }
+
+  .section {
+    padding-block: 3rem;
+  }
+
+
+/* Mobile: 600px wide and below */
+@media (max-width: 600px) {
+  .container {
+    padding-inline: 1rem;
+  }
+
+  /* Projects: one card per row */
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Hero buttons: full width, easy to tap */
+  .hero-actions .button {
+    flex: 1 1 100%;
+  }
+}

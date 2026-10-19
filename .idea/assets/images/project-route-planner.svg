@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+    <!-- Placeholder image: a street map with a route that avoids an obstacle -->
+    <rect width="800" height="500" fill="#12343b"/>
+
+    <!-- Streets -->
+    <g stroke="#1f5560" stroke-width="16">
+        <line x1="0" y1="120" x2="800" y2="120"/>
+        <line x1="0" y1="250" x2="800" y2="250"/>
+        <line x1="0" y1="380" x2="800" y2="380"/>
+        <line x1="180" y1="0" x2="180" y2="500"/>
+        <line x1="400" y1="0" x2="400" y2="500"/>
+        <line x1="620" y1="0" x2="620" y2="500"/>
+    </g>
+
+    <!-- Route -->
+    <polyline points="180,380 180,250 620,250 620,120"
+              fill="none" stroke="#5cd6c8" stroke-width="10"
+              stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 20"/>
+
+    <!-- Start point and destination -->
+    <circle cx="180" cy="380" r="18" fill="#5cd6c8" stroke="#ffffff" stroke-width="4"/>
+    <circle cx="620" cy="120" r="18" fill="#12343b" stroke="#5cd6c8" stroke-width="8"/>
+
+    <!-- Obstacle marker on a street the route avoids -->
+    <rect x="378" y="165" width="44" height="44" rx="8" fill="#ffc857"/>
+    <text x="400" y="198" text-anchor="middle" font-family="Arial, Helvetica, sans-serif"
+          font-size="30" font-weight="700" fill="#12343b">!</text>
+
+</svg>
