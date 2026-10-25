@@ -532,7 +532,7 @@ a:hover {
   .section {
     padding-block: 3rem;
   }
-
+}
 
 /* Mobile: 600px wide and below */
 @media (max-width: 600px) {
@@ -549,4 +549,210 @@ a:hover {
   .hero-actions .button {
     flex: 1 1 100%;
   }
+}
+
+
+/* ==========================================================================
+   ASSIGNMENT 2: PROJECT FILTER + ACCESSIBILITY CUSTOMIZATION
+   ========================================================================== */
+
+/* ---------- Project status filter ---------- */
+
+.project-filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.project-filters label {
+    font-weight: 600;
+}
+
+.project-filters select {
+    width: auto;
+    min-width: 12rem;
+}
+
+.project-count,
+.project-empty {
+    margin: 0 0 1.5rem;
+    color: var(--color-text-muted);
+}
+
+.project-empty {
+    padding: 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background-color: var(--color-surface);
+}
+
+/* The existing .project-card uses display: flex.
+   This rule ensures filtered cards are actually hidden. */
+.project-card[hidden] {
+    display: none !important;
+}
+
+
+/* ---------- Accessibility customization panel ---------- */
+
+.accessibility-settings {
+    max-width: 42rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background-color: var(--color-surface);
+}
+
+.accessibility-settings summary {
+    padding: 1rem 1.25rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.accessibility-settings summary:hover {
+    background-color: var(--color-hover-bg);
+}
+
+.settings-panel {
+    display: grid;
+    gap: 1.25rem;
+    padding: 1.25rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.setting-control {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.setting-control > label {
+    font-weight: 600;
+}
+
+.range-control {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.range-control input {
+    flex: 1;
+    min-width: 0;
+    accent-color: var(--color-accent);
+}
+
+.range-control output {
+    min-width: 4rem;
+    font-weight: 600;
+    text-align: end;
+    color: var(--color-text-muted);
+}
+
+.settings-panel select {
+    max-width: 100%;
+}
+
+#reset-accessibility {
+    justify-self: start;
+}
+
+
+/* ---------- User-adjustable reading settings ---------- */
+
+/* JavaScript updates these variables when the visitor changes settings. */
+
+:root {
+    --text-scale: 1;
+    --reading-line-height: 1.6;
+}
+
+/* Scale the root font size so rem-based text and controls grow together. */
+html {
+    font-size: calc(100% * var(--text-scale));
+}
+
+/* Let the visitor adjust normal text line spacing. */
+body {
+    line-height: var(--reading-line-height);
+}
+
+
+/* ---------- High-contrast themes ---------- */
+
+/* High contrast in light mode */
+:root[data-contrast="high"]:not([data-theme="dark"]) {
+    --color-bg: #ffffff;
+    --color-surface: #ffffff;
+    --color-text: #000000;
+    --color-text-muted: #222222;
+    --color-border: #000000;
+    --color-input-border: #000000;
+    --color-hover-bg: #eeeeee;
+
+    --color-accent: #005fcc;
+    --color-accent-hover: #003f8f;
+    --color-on-accent: #ffffff;
+    --color-focus: #ffbf00;
+
+    --color-ongoing-bg: #ffffff;
+    --color-ongoing-text: #000000;
+    --color-completed-bg: #ffffff;
+    --color-completed-text: #000000;
+}
+
+/* High contrast in dark mode */
+:root[data-contrast="high"][data-theme="dark"] {
+    --color-bg: #000000;
+    --color-surface: #000000;
+    --color-text: #ffffff;
+    --color-text-muted: #eeeeee;
+    --color-border: #ffffff;
+    --color-input-border: #ffffff;
+    --color-hover-bg: #222222;
+
+    --color-accent: #ffff00;
+    --color-accent-hover: #e5e500;
+    --color-on-accent: #000000;
+    --color-focus: #ffff00;
+
+    --color-ongoing-bg: #000000;
+    --color-ongoing-text: #ffffff;
+    --color-completed-bg: #000000;
+    --color-completed-text: #ffffff;
+}
+
+/* Keep status badges distinguishable in high-contrast mode. */
+:root[data-contrast="high"] .status-badge {
+    border: 1px solid currentColor;
+}
+
+
+/* ---------- Small-screen layout ---------- */
+
+@media (max-width: 600px) {
+    .project-filters {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .project-filters select {
+        width: 100%;
+    }
+
+    .settings-panel {
+        padding: 1rem;
+    }
+}
+
+/* Avoid transitions if the visitor's device requests reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
