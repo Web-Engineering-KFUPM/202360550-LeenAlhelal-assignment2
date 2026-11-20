@@ -35,12 +35,14 @@ Date: Sun 25 Oct
 
 ## 2. Declaration
 
-[Insert the exact AI-use declaration statement provided in the assignment guidelines.]
+I declare that this report and the attached evidence document all of my AI use in this assignment, with complete and unedited conversations, 
+and that I understand and can explain all the code I submitted. I understand that undeclared AI use or a false declaration will be treated as 
+plagiarism according to KFUPM regulations.
 
 Name: Leen Nasser Alhelal
 
-Student ID: [Enter your student ID]
+Student ID: 202360550
 
 Date: October 25, 2026
 
-Signature: [Complete as required by the assignment guidelines]
+Signature: Leen Alhelal
